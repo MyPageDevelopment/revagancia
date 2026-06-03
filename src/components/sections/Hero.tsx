@@ -54,7 +54,7 @@ export default function Hero() {
               rel="noreferrer"
               className="inline-flex w-full items-center justify-center rounded-full bg-fuchsia-500 px-6 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-fuchsia-400 focus:outline-none focus:ring-2 focus:ring-fuchsia-300 focus:ring-offset-2 focus:ring-offset-neutral-950 sm:w-auto"
             >
-              Escucha nuestro último sencillo
+              Escucha el último single
             </a>
             <p className="mt-3 text-xs text-neutral-400">
               CTA directo a Spotify (reemplazar por el link real).

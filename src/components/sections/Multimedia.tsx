@@ -72,7 +72,7 @@ export default function Multimedia() {
             {YOUTUBE_EMBED_URLS.map((src, index) => (
               <div
                 key={src}
-                className="relative w-full overflow-hidden rounded-xl border border-white/10 bg-neutral-900 pt-[56.25%]"
+                className="relative w-full overflow-hidden rounded-xl border border-white/10 bg-neutral-900 aspect-video"
               >
                 <iframe
                   title={`YouTube — video ${index + 1}`}

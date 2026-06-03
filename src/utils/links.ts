@@ -7,8 +7,8 @@ export const SPOTIFY_POPULAR_EMBED_URL =
 
 // Reemplazar por los videos oficiales / live sessions.
 export const YOUTUBE_EMBED_URLS = [
-  'https://www.youtube-nocookie.com/embed/ysz5S6PUM-U',
-  'https://www.youtube-nocookie.com/embed/jfKfPfyJRdk',
+  'https://www.youtube.com/embed/ysz5S6PUM-U',
+  'https://www.youtube.com/embed/jfKfPfyJRdk',
 ] as const
 
 export const SOCIAL_URLS = {
