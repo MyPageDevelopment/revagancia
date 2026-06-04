@@ -1,9 +1,115 @@
+import { useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { fadeUp } from '../../utils/motion'
-import { SPOTIFY_POPULAR_EMBED_URL, YOUTUBE_EMBED_URLS } from '../../utils/links'
+
+declare global {
+  interface Window {
+    onYouTubeIframeAPIReady: () => void
+    onSpotifyIframeApiReady: (IFrameAPI: any) => void
+    spotifyEmbedController: any
+    SpotifyIFrameAPI: any
+    onSpotifyAPIReadyCallbacks: any[]
+    YT: any
+  }
+}
 
 export default function Multimedia() {
   const reduceMotion = useReducedMotion()
+  const youtubePlayerRef = useRef<any>(null)
+  const spotifyControllerRef = useRef<any>(null)
+
+  useEffect(() => {
+    // Función para inicializar Spotify
+    const initializeSpotify = (IFrameAPI: any) => {
+      const element = document.getElementById('spotify-player-container')
+      if (!element) return
+
+      const options = {
+        uri: 'spotify:track:7kQDBfIEYEG0dV5GSoPv4J',
+        width: '100%',
+        height: '100%',
+      }
+
+      IFrameAPI.createController(element, options, (EmbedController: any) => {
+        spotifyControllerRef.current = EmbedController
+        window.spotifyEmbedController = EmbedController // Guardar en window para el botón del Hero
+
+        EmbedController.addListener('playback_update', (e: any) => {
+          const isPlaying = !e.data.isPaused
+          if (isPlaying) {
+            // Pausar YouTube si está reproduciéndose
+            if (
+              youtubePlayerRef.current &&
+              typeof youtubePlayerRef.current.pauseVideo === 'function'
+            ) {
+              try {
+                if (youtubePlayerRef.current.getPlayerState() === 1) { // 1 = PLAYING
+                  youtubePlayerRef.current.pauseVideo()
+                }
+              } catch (err) {
+                console.error('Error al pausar reproductor de YouTube:', err)
+              }
+            }
+          }
+        })
+      })
+    }
+
+    // Si la API de Spotify ya está cargada globalmente, inicializar de inmediato
+    if (window.SpotifyIFrameAPI) {
+      initializeSpotify(window.SpotifyIFrameAPI)
+    } else {
+      // Registrar el callback para cuando se cargue
+      if (!window.onSpotifyAPIReadyCallbacks) {
+        window.onSpotifyAPIReadyCallbacks = []
+      }
+      window.onSpotifyAPIReadyCallbacks.push(initializeSpotify)
+    }
+
+    // Inicialización del reproductor de YouTube
+    window.onYouTubeIframeAPIReady = () => {
+      const iframe = document.getElementById('youtube-short-iframe')
+      if (!iframe) return
+
+      youtubePlayerRef.current = new window.YT.Player('youtube-short-iframe', {
+        events: {
+          onStateChange: (event: any) => {
+            if (event.data === 1) { // 1 = PLAYING
+              // Pausar Spotify
+              if (spotifyControllerRef.current) {
+                try {
+                  spotifyControllerRef.current.pause()
+                } catch (err) {
+                  console.error('Error al pausar reproductor de Spotify:', err)
+                }
+              }
+            }
+          },
+        },
+      })
+    }
+
+    // Cargar script de YouTube si no existe, o inicializarlo directamente si ya está listo
+    if (window.YT && window.YT.Player) {
+      window.onYouTubeIframeAPIReady()
+    } else {
+      if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+        const script = document.createElement('script')
+        script.src = 'https://www.youtube.com/iframe_api'
+        script.async = true
+        document.body.appendChild(script)
+      }
+    }
+
+    return () => {
+      // Limpiar el callback para evitar fugas de memoria
+      if (window.onSpotifyAPIReadyCallbacks) {
+        window.onSpotifyAPIReadyCallbacks = window.onSpotifyAPIReadyCallbacks.filter(
+          (cb: any) => cb !== initializeSpotify
+        )
+      }
+    }
+  }, [])
 
   return (
     <motion.section
@@ -15,45 +121,28 @@ export default function Multimedia() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="border-t border-white/10"
     >
-      <div className="mx-auto max-w-6xl px-4 py-16">
+      <div className="mx-auto max-w-6xl px-4 py-12">
         <header className="max-w-2xl">
           <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-            Música & Videos
+            Shows y nuestra música!
           </h2>
           <p className="mt-2 text-sm text-neutral-300">
-            Lo más escuchado y dos clips en vivo (embeds responsivos).
+            Nuestros Show, música y contenido recomendado.
           </p>
         </header>
 
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {/* Columna 1: Spotify */}
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 flex flex-col justify-between">
-            <div>
-              <p className="mb-3 text-xs font-semibold tracking-[0.22em] text-neutral-300">
-                SPOTIFY
-              </p>
-              <iframe
-                title="Spotify — canciones populares"
-                src={SPOTIFY_POPULAR_EMBED_URL}
-                width="100%"
-                height="450"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                className="w-full rounded-xl border border-white/5"
-              />
-            </div>
-          </div>
-
+        <div className="mt-8 grid gap-8 md:grid-cols-2 max-w-4xl mx-auto items-stretch justify-center justify-items-center">
           {/* Columna 2: YouTube Short (Vertical) */}
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 flex flex-col justify-between">
-            <div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 flex flex-col max-w-[380px] w-full">
+            <div className="flex flex-col flex-grow">
               <p className="mb-3 text-xs font-semibold tracking-[0.22em] text-neutral-300">
                 YOUTUBE SHORT
               </p>
               <div className="relative w-full overflow-hidden rounded-xl border border-white/10 bg-neutral-900 aspect-[9/16]">
                 <iframe
+                  id="youtube-short-iframe"
                   title="YouTube — Short"
-                  src="https://www.youtube.com/embed/OWcG6DmOxKY"
+                  src="https://www.youtube.com/embed/OWcG6DmOxKY?enablejsapi=1"
                   className="absolute inset-0 h-full w-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   loading="lazy"
@@ -64,27 +153,17 @@ export default function Multimedia() {
             </div>
           </div>
 
-          {/* Columna 3: Videos Oficiales en Vivo */}
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:col-span-2 lg:col-span-1 flex flex-col gap-4">
-            <p className="text-xs font-semibold tracking-[0.22em] text-neutral-300">
-              VIDEOS EN VIVO
-            </p>
-            {YOUTUBE_EMBED_URLS.map((src, index) => (
+          {/* Columna 1: Spotify */}
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 flex flex-col max-w-[380px] w-full">
+            <div className="flex flex-col flex-grow">
+              <p className="mb-3 text-xs font-semibold tracking-[0.22em] text-neutral-300">
+                ÚLTIMO LANZAMIENTO
+              </p>
               <div
-                key={src}
-                className="relative w-full overflow-hidden rounded-xl border border-white/10 bg-neutral-900 aspect-video"
-              >
-                <iframe
-                  title={`YouTube — video ${index + 1}`}
-                  src={src}
-                  className="absolute inset-0 h-full w-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  loading="lazy"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                />
-              </div>
-            ))}
+                id="spotify-player-container"
+                className="w-full rounded-xl overflow-hidden flex-grow min-h-[450px] bg-neutral-950/40 border border-white/5"
+              />
+            </div>
           </div>
         </div>
       </div>

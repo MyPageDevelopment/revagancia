@@ -26,17 +26,32 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
     setIsOpen(false)
+    setTimeout(() => {
+      const id = href.replace('#', '')
+      const element = document.getElementById(id)
+      if (element) {
+        const headerOffset = 64
+        const elementPosition = element.getBoundingClientRect().top
+        const offsetPosition = elementPosition + window.scrollY - headerOffset
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        })
+        window.history.pushState(null, '', href)
+      }
+    }, 150)
   }
 
   return (
     <header
       className={
-        'sticky top-0 z-50 w-full border-b transition-colors ' +
+        'fixed top-0 left-0 z-50 w-full transition-all duration-500 ' +
         (isSolid || isOpen
-          ? 'border-white/10 bg-neutral-950/95 backdrop-blur-md'
-          : 'border-transparent bg-transparent')
+          ? 'bg-gradient-to-b from-neutral-950/95 via-neutral-950/75 to-transparent backdrop-blur-[4px]'
+          : 'bg-gradient-to-b from-neutral-950/50 to-transparent')
       }
     >
       <nav
@@ -45,7 +60,7 @@ export default function Navbar() {
       >
         <a
           href="#inicio"
-          onClick={handleLinkClick}
+          onClick={(e) => handleLinkClick(e, '#inicio')}
           className="text-sm font-semibold tracking-[0.18em] text-white z-50"
         >
           REVAGANCIA
@@ -59,6 +74,7 @@ export default function Navbar() {
             <li key={item.href}>
               <a
                 href={item.href}
+                onClick={(e) => handleLinkClick(e, item.href)}
                 className="rounded-full px-3 py-2 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-400/70"
               >
                 {item.label}
@@ -90,19 +106,19 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="md:hidden absolute top-16 left-0 w-full bg-neutral-950/95 backdrop-blur-lg border-b border-white/10 overflow-hidden shadow-2xl"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="md:hidden absolute top-16 left-0 w-full bg-neutral-950/95 backdrop-blur-xl border-b border-fuchsia-500/20 overflow-hidden shadow-[0_10px_30px_rgba(217,70,239,0.15)] z-40"
           >
-            <ul className="flex flex-col gap-1 p-4 text-center">
+            <ul className="flex flex-col gap-2 p-5 text-center">
               {NAV_ITEMS.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    onClick={handleLinkClick}
-                    className="block rounded-xl py-3 px-4 text-base font-semibold text-neutral-200 hover:text-white hover:bg-white/5 transition active:bg-white/10"
+                    onClick={(e) => handleLinkClick(e, item.href)}
+                    className="block rounded-xl py-3.5 px-4 text-base font-bold text-neutral-300 hover:text-white hover:bg-gradient-to-r hover:from-fuchsia-500/10 hover:to-amber-500/10 transition-all duration-300 active:scale-98 border border-transparent hover:border-fuchsia-500/20"
                   >
                     {item.label}
                   </a>

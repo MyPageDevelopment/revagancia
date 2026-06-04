@@ -1,9 +1,9 @@
 export const SPOTIFY_LATEST_SINGLE_URL =
-  'https://open.spotify.com/intl-es/artist/1JuKTK45tBPN7P1PHOGff3'
+  'https://open.spotify.com/intl-es/track/7kQDBfIEYEG0dV5GSoPv4J?si=0d875fdbc1ef47d2'
 
-// Reemplazar por el embed real de REVAGANCIA (playlist/artist/album) cuando lo tengan.
-export const SPOTIFY_POPULAR_EMBED_URL =
-  'https://open.spotify.com/embed/artist/1JuKTK45tBPN7P1PHOGff3'
+// Reemplazar por el embed del último single.
+export const SPOTIFY_LATEST_SINGLE_EMBED_URL =
+  'https://open.spotify.com/embed/track/7kQDBfIEYEG0dV5GSoPv4J'
 
 // Reemplazar por los videos oficiales / live sessions.
 export const YOUTUBE_EMBED_URLS = [
@@ -12,7 +12,7 @@ export const YOUTUBE_EMBED_URLS = [
 ] as const
 
 export const SOCIAL_URLS = {
-  instagram: 'https://instagram.com/',
+  instagram: 'https://instagram.com/revagancia_somosdelcuarzo',
   tiktok: 'https://tiktok.com/',
   youtube: 'https://www.youtube.com/@REVAGANCIA/videos',
 } as const

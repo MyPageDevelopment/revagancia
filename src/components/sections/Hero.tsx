@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { fadeUp } from '../../utils/motion'
-import { SPOTIFY_LATEST_SINGLE_URL } from '../../utils/links'
+
 
 export default function Hero() {
   const reduceMotion = useReducedMotion()
@@ -9,7 +9,7 @@ export default function Hero() {
   return (
     <section id="inicio" className="relative overflow-hidden">
       {/* Fondo (placeholder foto/video en vivo) */}
-      <div aria-hidden="true" className="absolute inset-0">
+      <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-25"
           style={{ backgroundImage: `url(${liveBgUrl})` }}
@@ -18,20 +18,20 @@ export default function Hero() {
       </div>
       <div
         aria-hidden="true"
-        className="absolute -top-32 left-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-amber-400/20 blur-3xl"
+        className="absolute -top-32 left-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-amber-400/20 blur-3xl pointer-events-none"
       />
       <div
         aria-hidden="true"
-        className="absolute -top-10 right-[-10rem] h-64 w-64 rounded-full bg-lime-400/10 blur-3xl"
+        className="absolute -top-10 right-[-10rem] h-64 w-64 rounded-full bg-lime-400/10 blur-3xl pointer-events-none"
       />
 
-      <div className="mx-auto max-w-6xl px-4 pb-16 pt-16 sm:pt-20">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 pb-12 pt-28 sm:pt-36 flex flex-col items-start text-left md:items-center md:text-center">
         <motion.div
           variants={fadeUp}
           initial={reduceMotion ? false : 'hidden'}
           animate={reduceMotion ? undefined : 'show'}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="w-full"
+          className="w-full flex flex-col items-start md:items-center"
         >
           <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-[0.22em] text-neutral-200">
             CUMBIA EN VIVO
@@ -43,22 +43,65 @@ export default function Hero() {
           </h1>
 
           <p className="mt-6 text-base leading-relaxed text-neutral-200 sm:text-lg max-w-2xl">
-            Ritmo, fiesta y energía de barrio. Somos REVAGANCIA: cumbia para
-            prender la pista, de punta a punta.
+            Somos REVAGANCIA y venimos directos de Villa Alemana para prender tu fiesta y cualquier carrete. Con toda la energía del cuarzo mi gente!
           </p>
 
-          <div className="mt-8 max-w-2xl">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 max-w-2xl w-full justify-start md:justify-center">
+            {/* Botón Shows en vivo */}
             <a
-              href={SPOTIFY_LATEST_SINGLE_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-full bg-fuchsia-500 px-6 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-fuchsia-400 focus:outline-none focus:ring-2 focus:ring-fuchsia-300 focus:ring-offset-2 focus:ring-offset-neutral-950 sm:w-auto"
+              href="#musica-y-videos"
+              onClick={(e) => {
+                e.preventDefault()
+                const element = document.getElementById('youtube-short-iframe') || document.getElementById('musica-y-videos')
+                if (element) {
+                  const headerOffset = 64
+                  const elementPosition = element.getBoundingClientRect().top
+                  const offsetPosition = elementPosition + window.scrollY - headerOffset
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth',
+                  })
+                }
+              }}
+              className="inline-flex w-full items-center justify-center rounded-full bg-fuchsia-500 px-6 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-fuchsia-400 focus:outline-none focus:ring-2 focus:ring-fuchsia-300 focus:ring-offset-2 focus:ring-offset-neutral-950 sm:w-auto cursor-pointer"
             >
-              Escucha el último single
+              Apaña a ver nuestros eventos!
             </a>
-            <p className="mt-3 text-xs text-neutral-400">
-              CTA directo a Spotify (reemplazar por el link real).
-            </p>
+
+            {/* Botón Temazo 
+            <a
+              href="#musica-y-videos"
+              onClick={(e) => {
+                e.preventDefault()
+                const isMobile = window.innerWidth < 768
+                const targetId = isMobile ? 'youtube-short-iframe' : 'musica-y-videos'
+                const element = document.getElementById(targetId) || document.getElementById('musica-y-videos')
+                if (element) {
+                  const headerOffset = 64
+                  const elementPosition = element.getBoundingClientRect().top
+                  const offsetPosition = elementPosition + window.scrollY - headerOffset
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth',
+                  })
+                }
+                
+                if (!isMobile) {
+                  const controller = (window as any).spotifyEmbedController
+                  if (controller && typeof controller.play === 'function') {
+                    try {
+                      controller.play()
+                    } catch (err) {
+                      console.error('Error playing Spotify track:', err)
+                    }
+                  }
+                }
+              }}
+              className="inline-flex w-full items-center justify-center rounded-full bg-fuchsia-500 px-6 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-fuchsia-400 focus:outline-none focus:ring-2 focus:ring-fuchsia-300 focus:ring-offset-2 focus:ring-offset-neutral-950 sm:w-auto cursor-pointer"
+            >
+              Escucha nuestro último temazo
+            </a>
+            */}
           </div>
         </motion.div>
       </div>

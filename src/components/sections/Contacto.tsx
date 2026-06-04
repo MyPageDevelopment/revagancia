@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { FaInstagram, FaTiktok, FaWhatsapp, FaYoutube } from 'react-icons/fa6'
+import { FaEnvelope, FaInstagram, FaTiktok, FaWhatsapp, FaYoutube } from 'react-icons/fa6'
 import { fadeUp } from '../../utils/motion'
 import { SOCIAL_URLS, WHATSAPP_BOOKING_URL } from '../../utils/links'
 
@@ -16,18 +16,18 @@ export default function Contacto() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="border-t border-white/10"
     >
-      <div className="mx-auto max-w-6xl px-4 py-16">
+      <div className="mx-auto max-w-6xl px-4 py-12">
         <header className="max-w-2xl">
           <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-            Contacto / Booking
+            Pa' que nos llamen!
           </h2>
           <p className="mt-2 text-sm text-neutral-300">
-            Para contrataciones y prensa, escribinos.
+            Para contrataciones y prensa, escribenos.
           </p>
         </header>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-2">
-          <form
+        <div className="mt-10 max-w-2xl mx-auto">
+          {/*<form
             className="rounded-2xl border border-white/10 bg-white/5 p-6"
             onSubmit={(e) => e.preventDefault()}
           >
@@ -77,7 +77,7 @@ export default function Contacto() {
                 Enviar (placeholder)
               </button>
             </div>
-          </form>
+          </form>*/}
 
           <aside className="rounded-2xl border border-white/10 bg-white/5 p-6 flex flex-col justify-between">
             <div>
@@ -94,14 +94,28 @@ export default function Contacto() {
                   href={WHATSAPP_BOOKING_URL}
                   target="_blank"
                   rel="noreferrer"
-                  className="group flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-neutral-950/40 p-5 text-center transition-all duration-300 hover:border-lime-500/50 hover:bg-lime-500/5 focus:outline-none focus:ring-2 focus:ring-lime-400/50 cursor-pointer"
+                  className="sm:col-span-2 group flex flex-col sm:flex-row items-center justify-center gap-4 rounded-2xl border border-white/10 bg-neutral-950/40 p-5 text-center sm:text-left transition-all duration-300 hover:border-lime-500/50 hover:bg-lime-500/5 focus:outline-none focus:ring-2 focus:ring-lime-400/50 cursor-pointer"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-lime-500/10 text-lime-400 group-hover:bg-lime-500 group-hover:text-neutral-950 transition-all duration-300">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-lime-500/10 text-lime-400 group-hover:bg-lime-500 group-hover:text-neutral-950 transition-all duration-300">
                     <FaWhatsapp className="text-2xl" />
                   </div>
                   <div className="min-w-0">
                     <p className="text-sm font-bold text-white group-hover:text-lime-400 transition-colors">WhatsApp</p>
-                    <p className="text-xs text-neutral-400 mt-0.5">Contrataciones</p>
+                    <p className="text-xs text-neutral-400 mt-0.5">Contrataciones oficiales y booking</p>
+                  </div>
+                </a>
+
+                {/* Correo */}
+                <a
+                  href="mailto:r3vagancia@gmail.com"
+                  className="group flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-neutral-950/40 p-5 text-center transition-all duration-300 hover:border-amber-500/50 hover:bg-amber-500/5 focus:outline-none focus:ring-2 focus:ring-amber-400/50 cursor-pointer"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400 group-hover:bg-amber-500 group-hover:text-neutral-950 transition-all duration-300">
+                    <FaEnvelope className="text-2xl" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">Correo</p>
+                    <p className="text-xs text-neutral-400 mt-0.5">r3vagancia@gmail.com</p>
                   </div>
                 </a>
 
@@ -126,7 +140,7 @@ export default function Contacto() {
                   href={SOCIAL_URLS.youtube}
                   target="_blank"
                   rel="noreferrer"
-                  className="group flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-neutral-950/40 p-5 text-center transition-all duration-300 hover:border-red-500/50 hover:bg-red-500/5 focus:outline-none focus:ring-2 focus:ring-red-400/50 cursor-pointer"
+                  className="group flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-neutral-950/40 p-5 text-center transition-all duration-300 hover:border-red-500/50 hover:bg-red-500/55 focus:outline-none focus:ring-2 focus:ring-red-400/50 cursor-pointer"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 text-red-400 group-hover:bg-red-500 group-hover:text-neutral-950 transition-all duration-300">
                     <FaYoutube className="text-2xl" />
@@ -157,6 +171,6 @@ export default function Contacto() {
           </aside>
         </div>
       </div>
-    </motion.section>
+    </motion.section >
   )
 }

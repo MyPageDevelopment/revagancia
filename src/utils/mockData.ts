@@ -31,6 +31,7 @@ export const bandMembers: BandMember[] = [
     role: 'Cantante',
     photoUrl: '/images/cantante.png',
     comment: '¡Viva la cumbia loco, a gozar y bailar con Revagancia!',
+    instagramUrl: 'https://instagram.com/revagancia_somosdelcuarzo',
   },
   {
     id: 'guirista',
@@ -38,6 +39,7 @@ export const bandMembers: BandMember[] = [
     role: 'Guirista',
     photoUrl: '/images/guirista.png',
     comment: '¡El raspado de la güira es el corazón de la fiesta!',
+    instagramUrl: 'https://instagram.com/revagancia_somosdelcuarzo',
   },
   {
     id: 'guitarrista',
@@ -45,6 +47,7 @@ export const bandMembers: BandMember[] = [
     role: 'Guitarrista',
     photoUrl: '/images/guitarrista.png',
     comment: '¡Cumbia con sentimiento en cada punteo de mi guitarra!',
+    instagramUrl: 'https://instagram.com/revagancia_somosdelcuarzo',
   },
   {
     id: 'timbales',
@@ -52,6 +55,7 @@ export const bandMembers: BandMember[] = [
     role: 'Timbales',
     photoUrl: '/images/timbales.png',
     comment: '¡Que suene fuerte el timbal y retumbe el barrio entero!',
+    instagramUrl: 'https://instagram.com/revagancia_somosdelcuarzo',
   },
   {
     id: 'bajo',
@@ -59,6 +63,7 @@ export const bandMembers: BandMember[] = [
     role: 'Bajo',
     photoUrl: '/images/bajo.png',
     comment: '¡Marcando las frecuencias bajas que hacen mover los pies!',
+    instagramUrl: 'https://instagram.com/revagancia_somosdelcuarzo',
   },
   {
     id: 'teclado',
@@ -66,5 +71,6 @@ export const bandMembers: BandMember[] = [
     role: 'Teclado',
     photoUrl: '/images/teclado.png',
     comment: '¡Esas teclas locas que le dan todo el sabor tropical!',
+    instagramUrl: 'https://instagram.com/revagancia_somosdelcuarzo',
   },
 ]

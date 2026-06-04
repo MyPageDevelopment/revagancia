@@ -9,6 +9,17 @@
       content="REVAGANCIA — Banda de cumbia. Música, videos, fechas, artistas y contrataciones."
     />
     <title>REVAGANCIA</title>
+    <script>
+      window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        window.SpotifyIFrameAPI = IFrameAPI;
+        if (window.onSpotifyAPIReadyCallbacks) {
+          window.onSpotifyAPIReadyCallbacks.forEach(cb => {
+            try { cb(IFrameAPI); } catch (e) { console.error(e); }
+          });
+        }
+      };
+    </script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
   </head>
   <body>
     <div id="root"></div>

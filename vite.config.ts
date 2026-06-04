@@ -12,5 +12,8 @@ export default defineConfig(({ mode }) => {
   return {
     base,
     plugins: [tailwindcss(), react()],
+    server: {
+      host: true,
+    },
   }
 })

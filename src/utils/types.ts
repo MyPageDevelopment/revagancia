@@ -13,4 +13,5 @@ export interface BandMember {
   role: string
   photoUrl?: string
   comment?: string
+  instagramUrl?: string
 }
