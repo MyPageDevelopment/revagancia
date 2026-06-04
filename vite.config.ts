@@ -6,8 +6,8 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   // Netlify normalmente deploya en '/', mientras que GitHub Pages requiere '/<repo>/'.
-  // Seteá VITE_BASE="/revagancia-web/" (ejemplo) al buildear para Pages.
-  const base = env.VITE_BASE || '/'
+  // En producción, usamos '/revagancia/' (nombre del repo de GitHub).
+  const base = env.VITE_BASE || (mode === 'production' ? '/revagancia/' : '/')
 
   return {
     base,

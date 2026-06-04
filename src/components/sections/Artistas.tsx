@@ -56,7 +56,7 @@ function ArtistCard({ member }: { member: BandMember }) {
           <div className="relative flex-grow overflow-hidden bg-neutral-950">
             {member.photoUrl ? (
               <img
-                src={member.photoUrl}
+                src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}${member.photoUrl}`}
                 alt={member.name}
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 draggable="false"
