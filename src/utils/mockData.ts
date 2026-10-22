@@ -77,7 +77,7 @@ export const bandMembers: BandMember[] = [
     role: 'Teclado',
     photoUrl: '/images/members/tecladista.jpg',
     photoPosition: 'center 35%',
-    comment: '100% Negro Cumbiero.',
+    comment: 'Locura Máxima',
     instagramUrl: 'https://www.instagram.com/baby.mocka/',
   },
   {
@@ -95,7 +95,7 @@ export const bandMembers: BandMember[] = [
     role: 'Congas y Percusión',
     photoUrl: '/images/members/conguero.jpg',
     photoPosition: 'center 72%',
-    comment: '¡El golpe percutivo que le da el empuje y sabor callejero a cada tema!',
+    comment: '100% NEGRO BATUQUERO Y CUMBIERO',
     instagramUrl: 'https://www.instagram.com/ahumada_r_/',
   },
 ]
