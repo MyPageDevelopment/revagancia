@@ -20,4 +20,4 @@ export const SOCIAL_URLS = {
 // Número oficial para contrataciones (Chile +56 9)
 export const WHATSAPP_PHONE_NUMBER = '56998062845'
 export const WHATSAPP_BOOKING_URL =
-  'https://wa.me/56998062845?text=Hola%20REVAGANCIA%2C%20quisiera%20consultar%20disponibilidad%20y%20cotizar%20para%20un%20evento%20en%20vivo.'
+  'https://wa.me/56998062845?text=Hola%20REVAGANCIA%2C%20quisiera%20consultar%20disponibilidad%20y%20cotizar%20para%20un%20show%20de%20Cumbia%20Fusi%C3%B3n%20Villera%20en%20vivo.'

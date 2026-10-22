@@ -127,10 +127,10 @@ export default function Multimedia() {
             En Vivo y Grabaciones
           </span>
           <h2 className="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
-            Nuestros Shows y Música Villera
+            Nuestros Shows y Música — Cumbia Fusión Villera
           </h2>
           <p className="mt-2 text-sm text-neutral-300">
-            Disfruta de nuestros registros en vivo, lanzamientos oficiales y covers reversionados con todo el poder villero de Revagancia.
+            Disfruta de nuestros registros en vivo, lanzamientos oficiales y covers reversionados con todo el poder de la Cumbia Fusión Villera de Revagancia.
           </p>
         </header>
 

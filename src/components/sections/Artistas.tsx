@@ -13,7 +13,8 @@ function ArtistCard({
   onFlipChange?: (flipped: boolean) => void
 }) {
   const [isFlipped, setIsFlipped] = useState(false)
-  const touchStartPos = useRef<{ x: number; y: number } | null>(null)
+  const pointerStartPos = useRef<{ x: number; y: number } | null>(null)
+  const isDragging = useRef(false)
 
   const toggleFlip = () => {
     setIsFlipped((prev) => {
@@ -23,37 +24,49 @@ function ArtistCard({
     })
   }
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    const touch = e.touches[0]
-    touchStartPos.current = { x: touch.clientX, y: touch.clientY }
+  // Manejo de eventos de puntero compatible 100% con iOS / iPhone y Android
+  // No bloquea el swipe nativo del carrusel en Safari móvil
+  const handlePointerDown = (e: React.PointerEvent) => {
+    pointerStartPos.current = { x: e.clientX, y: e.clientY }
+    isDragging.current = false
   }
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (!touchStartPos.current) return
-    const touch = e.changedTouches[0]
-    const diffX = Math.abs(touch.clientX - touchStartPos.current.x)
-    const diffY = Math.abs(touch.clientY - touchStartPos.current.y)
-
-    // Si el movimiento táctil es leve (no scroll), cuenta como tap
-    if (diffX < 12 && diffY < 12) {
-      toggleFlip()
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!pointerStartPos.current) return
+    const diffX = Math.abs(e.clientX - pointerStartPos.current.x)
+    const diffY = Math.abs(e.clientY - pointerStartPos.current.y)
+    // Si se desplazó más de 8px en cualquier dirección, es un swipe o scroll
+    if (diffX > 8 || diffY > 8) {
+      isDragging.current = true
     }
-    touchStartPos.current = null
+  }
+
+  const handlePointerUp = () => {
+    pointerStartPos.current = null
   }
 
   const handleClick = (e: React.MouseEvent) => {
-    if (e.nativeEvent instanceof PointerEvent && e.nativeEvent.pointerType === 'touch') {
+    // Si fue un desplazamiento o swipe con el dedo, no voltear la tarjeta
+    if (isDragging.current) {
+      isDragging.current = false
       return
     }
+    e.stopPropagation()
     toggleFlip()
   }
 
   return (
     <div
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
       onClick={handleClick}
-      className="w-[280px] sm:w-[295px] md:w-[310px] h-[420px] flex-shrink-0 snap-start [perspective:1200px] cursor-pointer group transition-all duration-500 ease-out hover:-translate-y-2 select-none"
+      style={{
+        touchAction: 'pan-x pan-y',
+        WebkitTouchCallout: 'none',
+      }}
+      className="w-[280px] sm:w-[295px] md:w-[310px] h-[420px] flex-shrink-0 snap-center [perspective:1200px] cursor-pointer group transition-transform duration-500 ease-out hover:-translate-y-2 select-none touch-pan-x"
     >
       <motion.div
         animate={{ rotateY: isFlipped ? 180 : 0 }}
@@ -72,7 +85,7 @@ function ArtistCard({
                 style={{
                   objectPosition: member.photoPosition || 'center top',
                 }}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none select-none"
                 draggable="false"
                 loading="lazy"
               />
@@ -81,16 +94,23 @@ function ArtistCard({
                 Sin foto
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-transparent pointer-events-none" />
 
             {/* Badge de interacción (Girar) */}
-            <div className="absolute top-3 right-3 bg-neutral-950/85 backdrop-blur-md rounded-full px-2.5 py-1 border border-white/15 shadow-lg text-[11px] text-fuchsia-300 font-semibold tracking-wider flex items-center gap-1.5 select-none transition-all duration-300 group-hover:border-fuchsia-400 group-hover:scale-105">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                toggleFlip()
+              }}
+              className="absolute top-3 right-3 bg-neutral-950/85 backdrop-blur-md rounded-full px-2.5 py-1 border border-white/15 shadow-lg text-[11px] text-fuchsia-300 font-semibold tracking-wider flex items-center gap-1.5 select-none transition-all duration-300 group-hover:border-fuchsia-400 group-hover:scale-105 cursor-pointer z-10"
+            >
               <span>Girar</span>
               <FaRotate className="text-xs transition-transform duration-500 group-hover:rotate-180" />
-            </div>
+            </button>
 
             {/* Badge de rol en la foto */}
-            <div className="absolute bottom-3 left-3 bg-fuchsia-950/85 backdrop-blur-md border border-fuchsia-500/40 rounded-lg px-2.5 py-1 text-[11px] font-bold text-fuchsia-300 uppercase tracking-wider shadow-md">
+            <div className="absolute bottom-3 left-3 bg-fuchsia-950/85 backdrop-blur-md border border-fuchsia-500/40 rounded-lg px-2.5 py-1 text-[11px] font-bold text-fuchsia-300 uppercase tracking-wider shadow-md pointer-events-none">
               {member.role}
             </div>
           </div>
@@ -115,9 +135,16 @@ function ArtistCard({
             <span className="font-extrabold text-fuchsia-400 tracking-wider uppercase text-[10px]">
               {member.role}
             </span>
-            <span className="text-[11px] flex items-center gap-1 text-neutral-400 group-hover:text-fuchsia-300 transition-colors">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                toggleFlip()
+              }}
+              className="text-[11px] flex items-center gap-1 text-neutral-400 hover:text-fuchsia-300 transition-colors cursor-pointer"
+            >
               Volver <FaRotate className="text-[9px]" />
-            </span>
+            </button>
           </div>
 
           <div className="my-auto py-2">
@@ -126,7 +153,7 @@ function ArtistCard({
               Comentario Villero
             </p>
             <p className="text-base sm:text-lg italic font-semibold text-white leading-relaxed px-1">
-              "{member.comment || '¡Aguante la cumbia villera con Revagancia!'}"
+              "{member.comment || '¡Aguante la Cumbia Fusión Villera con Revagancia!'}"
             </p>
           </div>
 
@@ -364,7 +391,7 @@ export default function Artistas() {
               Nuestros <span className="bg-gradient-to-r from-fuchsia-400 via-amber-300 to-lime-400 bg-clip-text text-transparent">Artistas</span>
             </h2>
             <p className="mt-3 text-sm sm:text-base leading-relaxed text-neutral-300">
-              Desliza por el carrusel o toca cualquier tarjeta para girarla y leer el comentario de cada músico. ¡Los encargados de prender la verdadera cumbia villera!
+              Desliza por el carrusel o toca cualquier tarjeta para girarla y leer el comentario de cada músico. ¡Los encargados de prender la verdadera Cumbia Fusión Villera!
             </p>
           </div>
 
@@ -390,7 +417,7 @@ export default function Artistas() {
           </div>
         </header>
 
-        {/* Carrusel interactivo */}
+        {/* Carrusel interactivo optimizado para iPhone y pantallas táctiles */}
         <div className="relative group px-1">
           {/* Flecha flotante izquierda para Desktop */}
           <button
@@ -410,11 +437,15 @@ export default function Artistas() {
             <FaChevronRight className="text-base" />
           </button>
 
-          {/* Riel de tarjetas del carrusel */}
+          {/* Riel de tarjetas del carrusel con soporte WebKit iOS Safari nativo */}
           <div
             ref={carouselRef}
-            className="flex flex-nowrap gap-5 sm:gap-6 md:gap-7 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-8 pt-2 px-3 sm:px-4 scroll-smooth [&::-webkit-scrollbar]:hidden items-stretch"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            className="flex flex-nowrap gap-5 sm:gap-6 md:gap-7 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-8 pt-2 px-3 sm:px-4 scroll-smooth [&::-webkit-scrollbar]:hidden items-stretch touch-pan-x touch-pan-y overscroll-x-contain"
+            style={{
+              WebkitOverflowScrolling: 'touch',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
           >
             {bandMembers.map((member) => (
               <ArtistCard

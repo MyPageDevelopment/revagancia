@@ -39,7 +39,7 @@ export default function Contacto() {
   // Mensaje dinámico para WhatsApp según selección
   const generateWhatsAppMessage = () => {
     return encodeURIComponent(
-      `¡Hola REVAGANCIA! 👋 Me gustaría cotizar su show de Cumbia Villera en vivo para un evento de tipo "${selectedType}" en "${selectedLocation}". ¿Tienen disponibilidad de fechas y cómo podemos coordinar? ¡Muchas gracias!`
+      `¡Hola REVAGANCIA! 👋 Me gustaría cotizar su show de Cumbia Fusión Villera en vivo para un evento de tipo "${selectedType}" en "${selectedLocation}". ¿Tienen disponibilidad de fechas y cómo podemos coordinar? ¡Muchas gracias!`
     )
   }
 
@@ -85,7 +85,7 @@ export default function Contacto() {
           <p className="mt-4 text-base sm:text-lg leading-relaxed text-neutral-200">
             ¿Quieres contratar una <span className="text-lime-300 font-bold">banda de cumbia en vivo</span> para tu festival, matrimonio, cumpleaños o evento en{' '}
             <span className="text-amber-300 font-semibold">Quilpué, Villa Alemana o la Quinta Región</span>? 7 músicos en escena con la verdadera{' '}
-            <span className="text-lime-300 font-bold">Cumbia Villera</span> y toda la fuerza del cuarzo en Chile.
+            <span className="text-lime-300 font-bold">Cumbia Fusión Villera</span> y toda la fuerza del cuarzo en Chile.
           </p>
         </div>
 
@@ -163,7 +163,7 @@ export default function Contacto() {
                 Mensaje preconfigurado para WhatsApp:
               </span>
               <p className="italic text-neutral-200">
-                "¡Hola REVAGANCIA! 👋 Me gustaría cotizar su show de Cumbia Villera en vivo para{' '}
+                "¡Hola REVAGANCIA! 👋 Me gustaría cotizar su show de Cumbia Fusión Villera en vivo para{' '}
                 <span className="text-fuchsia-300 font-semibold">{selectedType}</span> en{' '}
                 <span className="text-amber-300 font-semibold">{selectedLocation}</span>..."
               </p>

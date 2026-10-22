@@ -80,16 +80,16 @@ export default function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-lime-400" />
             </span>
-            <span>BANDA DE CUMBIA VILLERA · QUILPUÉ / VILLA ALEMANA · V REGIÓN</span>
+            <span>BANDA DE CUMBIA FUSIÓN VILLERA · QUILPUÉ / VILLA ALEMANA · V REGIÓN</span>
           </div>
 
           {/* Logo Oficial con animación de hover 100% fluida */}
           <div className="mt-6 md:mt-8 w-full flex justify-center">
             <h1 className="relative flex flex-col items-center">
-              <span className="sr-only">REVAGANCIA — Banda de Cumbia Villera en Vivo | Quilpué, Villa Alemana y Quinta Región Chile</span>
+              <span className="sr-only">REVAGANCIA — Banda de Cumbia Fusión Villera en Vivo | Quilpué, Villa Alemana y Quinta Región Chile</span>
               <motion.img
                 src={logoUrl}
-                alt="REVAGANCIA — Banda Cumbia Villera Chile"
+                alt="REVAGANCIA — Banda Cumbia Fusión Villera Chile"
                 className="w-[290px] xs:w-[350px] sm:w-[460px] md:w-[560px] lg:w-[620px] max-w-[90vw] h-auto object-contain select-none cursor-pointer transform-gpu"
                 whileHover={{
                   scale: 1.035,
@@ -110,7 +110,7 @@ export default function Hero() {
 
           {/* Bajada con identidad festiva villera y SEO local */}
           <p className="mt-6 text-base sm:text-lg md:text-xl leading-relaxed text-neutral-100 max-w-2xl font-medium drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
-            Banda de <span className="text-lime-300 font-bold">Cumbia Villera</span> en vivo originaria de{' '}
+            Banda de <span className="text-lime-300 font-bold">Cumbia Fusión Villera</span> en vivo originaria de{' '}
             <span className="text-amber-300 font-semibold">Villa Alemana y Quilpué</span>. Llevamos todo el descontrol, los clásicos reversionados y la{' '}
             <span className="bg-gradient-to-r from-fuchsia-400 to-lime-300 bg-clip-text text-transparent font-bold">energía del cuarzo</span> a eventos, matrimonios y festivales en toda la{' '}
             <span className="text-amber-300 font-semibold">Quinta Región y Chile</span>.

@@ -41,7 +41,7 @@ export const bandMembers: BandMember[] = [
     role: 'Voz Principal',
     photoUrl: '/images/members/cantante.jpg',
     photoPosition: 'center 45%',
-    comment: '¡Aguante la cumbia villera loco! Dejamos el alma en la cancha para que la gente cante, salte y baile sin parar.',
+    comment: '¡Aguante la Cumbia Fusión Villera loco! Dejamos el alma en la cancha para que la gente cante, salte y baile sin parar.',
     instagramUrl: 'https://www.instagram.com/negroni_rv/',
   },
   {
@@ -86,7 +86,7 @@ export const bandMembers: BandMember[] = [
     role: 'Timbales',
     photoUrl: '/images/members/timbalero.jpg',
     photoPosition: 'center 75%',
-    comment: '¡El repique de timbal bien al frente, marcando el pulso y la fiesta de la cumbia villera!',
+    comment: '¡El repique de timbal bien al frente, marcando el pulso y la fiesta de la Cumbia Fusión Villera!',
     instagramUrl: 'https://www.instagram.com/enigman.alejandro.beats/',
   },
   {
