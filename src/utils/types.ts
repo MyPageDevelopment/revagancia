@@ -12,6 +12,7 @@ export interface BandMember {
   name: string
   role: string
   photoUrl?: string
+  photoPosition?: string
   comment?: string
   instagramUrl?: string
 }

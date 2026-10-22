@@ -61,9 +61,13 @@ export default function Navbar() {
         <a
           href="#inicio"
           onClick={(e) => handleLinkClick(e, '#inicio')}
-          className="text-sm font-semibold tracking-[0.18em] text-white z-50"
+          className="flex items-center gap-2 z-50 group py-1"
         >
-          REVAGANCIA
+          <img
+            src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/images/logo-oficial.png`}
+            alt="REVAGANCIA"
+            className="h-8 sm:h-9 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(217,70,239,0.5)] transition-transform duration-300 group-hover:scale-105"
+          />
         </a>
 
         {/* Menú de Escritorio */}

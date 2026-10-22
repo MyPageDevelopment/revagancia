@@ -123,11 +123,14 @@ export default function Multimedia() {
     >
       <div className="mx-auto max-w-6xl px-4 py-12">
         <header className="max-w-2xl">
-          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-            Shows y nuestra música!
+          <span className="text-xs font-bold tracking-[0.22em] text-fuchsia-400 uppercase">
+            En Vivo y Grabaciones
+          </span>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
+            Nuestros Shows y Música Villera
           </h2>
           <p className="mt-2 text-sm text-neutral-300">
-            Nuestros Show, música y contenido recomendado.
+            Disfruta de nuestros registros en vivo, lanzamientos oficiales y covers reversionados con todo el poder villero de Revagancia.
           </p>
         </header>
 

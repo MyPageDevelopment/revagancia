@@ -17,6 +17,7 @@ export const SOCIAL_URLS = {
   youtube: 'https://www.youtube.com/@REVAGANCIA/videos',
 } as const
 
-// Reemplazar por el número real de booking.
+// Número oficial para contrataciones (Chile +56 9)
+export const WHATSAPP_PHONE_NUMBER = '56998062845'
 export const WHATSAPP_BOOKING_URL =
-  'https://wa.me/5491100000000?text=Hola%20REVAGANCIA%2C%20quisiera%20consultar%20disponibilidad%20para%20una%20fecha.'
+  'https://wa.me/56998062845?text=Hola%20REVAGANCIA%2C%20quisiera%20consultar%20disponibilidad%20y%20cotizar%20para%20un%20evento%20en%20vivo.'
