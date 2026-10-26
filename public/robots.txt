@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mypagedevelopment.github.io/revagancia/sitemap.xml
+Sitemap: https://revagancia.cl/sitemap.xml
